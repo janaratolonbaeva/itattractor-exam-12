@@ -1,17 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import {Provider} from 'react-redux';
+import {Router} from 'react-router-dom';
+import {MuiThemeProvider} from "@material-ui/core";
+import {SnackbarProvider} from "notistack";
+import history from "./history";
+import store from "./store/configureStore";
+import theme from './theme';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const app = (
+  <Provider store={store}>
+    <Router history={history}>
+      <SnackbarProvider>
+        <MuiThemeProvider theme={theme}>
+          <App/>
+        </MuiThemeProvider>
+      </SnackbarProvider>
+    </Router>
+  </Provider>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+ReactDOM.render(app, document.getElementById('root'));

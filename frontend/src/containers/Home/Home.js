@@ -41,7 +41,6 @@ const Home = () => {
   }, [dispatch]);
 
   const getPhoto = (id) => {
-    console.log('modal')
     dispatch(getPhotoRequest(id));
     setOpen(true);
   }

@@ -1,12 +1,33 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Helmet} from "react-helmet";
 import {useParams} from "react-router-dom";
-import {Grid} from "@material-ui/core";
+import {Backdrop, Button, CardMedia, Fade, Grid, makeStyles, Modal, Paper, Typography} from "@material-ui/core";
 import Title from "../../components/Title/Title";
 import PhotoCard from "../../components/PhotoCard/PhotoCard";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchUserPhotosRequest, getPhotoRequest} from "../../store/actions/photosActions";
+import {fetchUserPhotosRequest, getPhotoRequest, removePhotoRequest} from "../../store/actions/photosActions";
 import ProgressBar from "../../components/UI/ProgressBar/ProgressBar";
+import {apiURL} from "../../config";
+
+const useStyle = makeStyles({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    height: '80%',
+    width: '80%',
+    textAlign: 'center'
+  },
+  imageModal: {
+    width: '100%',
+    height: '80%'
+  },
+  titleModal: {
+    margin: '20px 0'
+  }
+});
 
 const UserPhotos = () => {
   const params = useParams();
@@ -15,6 +36,8 @@ const UserPhotos = () => {
   const loading = useSelector(state => state.photos.photosLoading);
   const user = useSelector(state => state.users.user);
   const photo = useSelector(state => state.photos.photo);
+  const [open, setOpen] = useState(false);
+  const classes = useStyle();
 
   useEffect(() => {
     dispatch(fetchUserPhotosRequest(params.id));
@@ -22,6 +45,15 @@ const UserPhotos = () => {
 
   const getPhoto = (id) => {
     dispatch(getPhotoRequest(id));
+    setOpen(true);
+  }
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const deletePhoto = (id) => {
+    dispatch(removePhotoRequest(id));
   }
 
   return (
@@ -42,9 +74,32 @@ const UserPhotos = () => {
             id={item.user._id}
             userId={user._id}
             getPhoto={() => getPhoto(item._id)}
+            onClick={() => deletePhoto(item._id)}
           />
         ))}
       </Grid>
+      {photo && (<Modal
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        className={classes.modal}
+        BackdropProps={{
+          timeout: 500
+        }}
+      >
+        <Fade in={open}>
+          <Paper className={classes.paper}>
+            <CardMedia
+              image={apiURL + '/' + photo.image}
+              title={photo.title}
+              className={classes.imageModal}
+            />
+            <Typography className={classes.titleModal}>{photo.title}</Typography>
+            <Button variant="contained" color="primary" onClick={handleClose}>Close</Button>
+          </Paper>
+        </Fade>
+      </Modal>)}
     </>
   );
 };

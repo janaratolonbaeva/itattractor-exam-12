@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   }
 });
 
-const FileInput = ({onChange, name, label}) => {
+const FileInput = ({onChange, name}) => {
   const classes = useStyles();
   const inputRef = useRef();
 

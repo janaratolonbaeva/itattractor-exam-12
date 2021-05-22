@@ -15,7 +15,7 @@ const downloadAvatar = async url => {
 };
 
 const tryToCreateDir = async dirName => {
-  const dirPath = path.join(config.uploadPath, dirName); // /home/tsyganov/projects/js8-9/workspace/shop/api/public
+  const dirPath = path.join(config.uploadPath, dirName);
 
   try {
     await fs.access(dirPath);

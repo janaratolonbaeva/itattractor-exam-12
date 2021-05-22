@@ -1,5 +1,4 @@
 const path = require('path');
-const fs = require('fs');
 const multer = require('multer');
 const {nanoid} = require('nanoid');
 const config = require('./config');
@@ -23,10 +22,10 @@ const createMulter = dirName => {
   return multer({storage});
 };
 
-const products = createMulter('products');
+const photos = createMulter('photos');
 const avatar = createMulter('avatar');
 
 module.exports = {
-  products,
+  photos,
   avatar
 };

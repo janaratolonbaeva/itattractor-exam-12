@@ -5,6 +5,8 @@ import Layout from "./components/UI/Layout/Layout";
 import Register from "./containers/Register/Register";
 import Login from "./containers/Login/Login";
 import {Helmet} from "react-helmet";
+import Home from "./containers/Home/Home";
+import AddNewPhoto from "./containers/AddNewPhoto/AddNewPhoto";
 
 const ProtectedRoute = ({isAllowed, redirectTo, ...props}) => {
   return isAllowed ?
@@ -22,12 +24,13 @@ const App = () => {
         defaultTitle="Photo Gallery"
       />
       <Switch>
-        {/*<ProtectedRoute*/}
-        {/*  path="/products/new"*/}
-        {/*  component={NewProduct}*/}
-        {/*  isAllowed={user && user.role === 'admin'}*/}
-        {/*  redirectTo="/login"*/}
-        {/*/>*/}
+        <Route path="/" exact component={Home}/>
+        <ProtectedRoute
+          path="/products/new"
+          component={AddNewPhoto}
+          isAllowed={user}
+          redirectTo="/login"
+        />
         <Route path="/register" component={Register}/>
         <Route path="/login" component={Login}/>
       </Switch>

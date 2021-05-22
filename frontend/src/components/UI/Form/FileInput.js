@@ -1,12 +1,16 @@
 import React, {useRef, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const useStyles = makeStyles({
-  input: {
+  inputFile: {
     display: 'none'
+  },
+  inputText: {
+    border: 'none',
+    lineHeight: '36px',
+    background: 'transparent'
   }
 });
 
@@ -35,28 +39,27 @@ const FileInput = ({onChange, name, label}) => {
       <input
         type="file"
         name={name}
-        className={classes.input}
+        className={classes.inputFile}
         onChange={onFileChange}
         ref={inputRef}
       />
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs>
-          <TextField
-            variant="outlined"
-            disabled
-            fullWidth
-            label={label}
-            value={filename}
-            onClick={activateInput}
-          />
-        </Grid>
         <Grid item>
           <Button
             variant="contained"
             onClick={activateInput}
           >
-            Browse
+            Choose file
           </Button>
+        </Grid>
+        <Grid item>
+          <input
+            disabled
+            value={filename}
+            onClick={activateInput}
+            placeholder="no file chosen"
+            className={classes.inputText}
+          />
         </Grid>
       </Grid>
     </>

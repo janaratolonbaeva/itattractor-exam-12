@@ -1,8 +1,9 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
-import {Avatar, Button, Grid, Link, makeStyles, Typography} from "@material-ui/core";
+import {Avatar, Button, Grid, makeStyles, Typography} from "@material-ui/core";
 import {logoutRequest} from "../../../../store/actions/usersActions";
 import {apiURL} from "../../../../config";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -26,7 +27,7 @@ const UserMenu = ({user}) => {
       <Grid container alignItems="center">
        <Grid item className={classes.avatarBlock}>
          <Grid container alignItems="center">
-           <Link to="/addNew-photo" className={classes.userText}>{user.displayName}</Link>
+           <Typography component={Link} color="inherit" to="/addNew-photo" className={classes.userText}>{user.displayName}</Typography>
            {user.avatar ?
              <Avatar
                src={apiURL + '/' + user.avatar}

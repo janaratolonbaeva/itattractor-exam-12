@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 const router = express.Router();
 
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
   try {
     const photos = await Photo.find().populate('user', 'displayName');
 
@@ -54,10 +54,19 @@ router.get('/users/:id', async (req, res) => {
       criteria = {user: req.params.id};
     }
 
-    const photos = await Photo.find(criteria);
+    const photos = await Photo.find(criteria).populate('user', 'displayName');
     res.send(photos);
   } catch (e) {
     res.sendStatus(500);
+  }
+});
+
+router.delete('/:id', auth, async (req, res) => {
+  try {
+    const photo = await Photo.deleteOne({_id: req.params.id});
+    res.send(photo);
+  } catch (e) {
+    res.status(400).send(e);
   }
 });
 

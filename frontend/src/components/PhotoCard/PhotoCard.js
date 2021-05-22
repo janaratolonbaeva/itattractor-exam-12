@@ -1,16 +1,21 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import CardMedia from '@material-ui/core/CardMedia';
-import Typography from '@material-ui/core/Typography';
 import {Link} from "react-router-dom";
+import {
+  Card,
+  CardActionArea,
+  CardActions,
+  CardContent,
+  CardMedia,
+  Typography,
+  makeStyles,
+  Grid
+} from '@material-ui/core';
+import {apiURL} from "../../config";
 
 const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
+  card: {
+    width: '90%',
+    margin: '0 auto'
   },
   media: {
     height: 0,
@@ -22,23 +27,25 @@ const PhotoCard = ({onClick, title, image, id, user}) => {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
-      <CardActionArea onClick={onClick}>
-        <CardMedia
-          className={classes.media}
-          image={image}
-          title={title}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            {title}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Typography component={Link} to={'/users/' + id} color="inherit">{user}</Typography>
-      </CardActions>
-    </Card>
+    <Grid item xs={6} md={4}>
+      <Card className={classes.card}>
+        <CardActionArea onClick={onClick}>
+          <CardMedia
+            className={classes.media}
+            image={apiURL + '/' + image}
+            title={title}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="h2">
+              {title}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
+        <CardActions>
+          <Typography component={Link} to={'/users/' + id} color="inherit">{user}</Typography>
+        </CardActions>
+      </Card>
+    </Grid>
   );
 }
 

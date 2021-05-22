@@ -1,10 +1,11 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require("cors");
-const users = require('./app/users');
 const mongoose = require('mongoose');
 const exitHook = require('async-exit-hook');
 const config = require('./config');
+const users = require('./app/users');
+const photos = require('./app/photos');
 
 const app = express();
 app.use(express.static('public'));
@@ -14,6 +15,7 @@ app.use(cors());
 const port = 8000;
 
 app.use('/users', users);
+app.use('/photos', photos);
 
 const run = async () => {
   await mongoose.connect(config.db.url, config.db.options);

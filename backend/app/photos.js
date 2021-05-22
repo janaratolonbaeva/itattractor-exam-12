@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async (req, res) => {
   try {
-    const photos = await Photo.find();
+    const photos = await Photo.find().populate('user', 'displayName');
 
     res.send(photos);
   } catch (e) {
@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.post('/', auth, upload('image'), async (req, res) => {
+router.post('/', auth, upload.single('image'), async (req, res) => {
   try {
     const photoData = {
       title: req.body.title,
@@ -60,3 +60,5 @@ router.get('/users/:id', async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+module.exports = router;

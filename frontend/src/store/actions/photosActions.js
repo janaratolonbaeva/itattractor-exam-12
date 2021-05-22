@@ -9,5 +9,9 @@ export const {
   postPhotoFailure,
   getPhotoRequest,
   getPhotoSuccess,
-  getPhotoFailure
+  getPhotoFailure,
+  fetchUserPhotosRequest,
+  removePhotoRequest,
+  removePhotoSuccess,
+  removePhotoFailure
 } = photosSlice.actions;

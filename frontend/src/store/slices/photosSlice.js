@@ -8,7 +8,9 @@ const initialState = {
   getPhotoLoading: false,
   getPhotoError: null,
   postPhotoLoading: false,
-  postPhotoError: null
+  postPhotoError: null,
+  removePhotoLoading: false,
+  removePhotoError: null
 };
 
 const name = 'photos';
@@ -48,6 +50,20 @@ const photosSlice = createSlice({
     getPhotoFailure: (state, {payload: error}) => {
       state.getphotoLoading = false;
       state.getphotoError = error;
+    },
+    fetchUserPhotosRequest: (state) => {
+      state.photosLoading = true;
+    },
+    removePhotoRequest: (state) => {
+      state.removePhotoLoading = true;
+    },
+    removePhotoSuccess: (state, {payload: photoId}) => {
+      state.removePhotoLoading = false;
+      state.cocktails = state.cocktails.filter(p => p._id !== photoId);
+    },
+    removePhotoFailure: (state, {payload: error}) => {
+      state.removePhotoLoading = false;
+      state.removePhotoError = error;
     }
   }
 });

@@ -1,9 +1,7 @@
-const fs = require('fs').promises;
 const express = require('express');
 const User = require('../models/User');
 const config = require('../config');
 const axios = require("axios");
-const path = require("path");
 const {downloadAvatar} = require("../utils");
 const {nanoid} = require("nanoid");
 const { OAuth2Client } = require('google-auth-library');
@@ -66,12 +64,8 @@ router.delete('/sessions', async (req, res) => {
 });
 
 router.post('/facebookLogin', async (req, res) => {
-  console.log(req.body);
-
   const inputToken = req.body.accessToken;
-
   const accessToken = config.facebook.appId + '|' + config.facebook.appSecret;
-
   const debugTokenUrl = `https://graph.facebook.com/debug_token?input_token=${inputToken}&access_token=${accessToken}`;
 
   try {
@@ -81,8 +75,6 @@ router.post('/facebookLogin', async (req, res) => {
       console.log(response.data);
       return res.status(401).send({global: 'Facebook token incorrect'});
     }
-
-    console.log(response.data);
 
     if (response.data.data['user_id'] !== req.body.id) {
       return res.status(401).send({global: 'User ID incorrect'});

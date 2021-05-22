@@ -5,7 +5,7 @@ module.exports = {
   rootPath,
   uploadPath: path.join(rootPath, 'public'),
   db: {
-    url: 'mongodb://localhost/shop',
+    url: 'mongodb://localhost/photoGallery',
     options: {
       useNewUrlParser: true,
       useUnifiedTopology: true,

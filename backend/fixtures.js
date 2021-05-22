@@ -1,7 +1,5 @@
 const mongoose = require('mongoose');
 const config = require('./config');
-const Category = require("./models/Category");
-const Product = require("./models/Product");
 const User = require("./models/User");
 const {nanoid} = require('nanoid');
 
@@ -15,17 +13,15 @@ const run = async () => {
   }
 
   await User.create({
-    email: 'user@shop',
-    password: '1qaz@WSX29',
+    email: 'user1@photo',
+    password: '123',
     token: nanoid(),
-    role: 'user',
-    displayName: 'User'
+    displayName: 'User1'
   }, {
-    email: 'admin@shop',
-    password: '1qaz@WSX29',
+    email: 'user2@photo',
+    password: '123',
     token: nanoid(),
-    role: 'admin',
-    displayName: 'Admin'
+    displayName: 'User2'
   });
 
   await mongoose.connection.close();

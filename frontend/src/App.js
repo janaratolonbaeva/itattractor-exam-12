@@ -7,7 +7,7 @@ import Login from "./containers/Login/Login";
 import {Helmet} from "react-helmet";
 import Home from "./containers/Home/Home";
 import AddNewPhoto from "./containers/AddNewPhoto/AddNewPhoto";
-import UserPhotos from "./containers/UsersPhotos/UserPhotos";
+import UserPhotos from "./containers/UserPhotos/UserPhotos";
 
 const ProtectedRoute = ({isAllowed, redirectTo, ...props}) => {
   return isAllowed ?
@@ -26,7 +26,7 @@ const App = () => {
       />
       <Switch>
         <Route path="/" exact component={Home}/>
-        <Route path="/users/:id" exact component={UserPhotos}></Route>
+        <Route path="/users/:id" exact component={UserPhotos}/>
         <ProtectedRoute
           path="/addNew-photo"
           component={AddNewPhoto}
